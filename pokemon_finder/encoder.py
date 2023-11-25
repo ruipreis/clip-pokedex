@@ -18,7 +18,7 @@ ENCODING_DIM = 512
 def encode_pokemon(pokemon_name: str):
     assert pokemon_name in POKEMON_DICT.keys(), f"Pokemon {pokemon_name} not found"
     pokemon_path = POKEMON_DICT[pokemon_name]
-    return encode_image(pokemon_path)[1]
+    return encode_image(pokemon_path)
 
 
 def encode_image(image_path: str):

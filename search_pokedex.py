@@ -23,7 +23,7 @@ def wrap_text(text, max_width):
     return "\n".join(textwrap.wrap(text, max_width))
 
 
-def display_pokemon_images(original, similarities, pokemon_names, num_columns=5):
+def display_pokemon_images(original, similarities, pokemon_names, num_columns=5, image_path:str="pokemon.png"):
     num_images = len(pokemon_names) + 1  # +1 for the original
     num_rows = int(np.ceil(num_images / num_columns))
     fig, axes = plt.subplots(
@@ -65,7 +65,11 @@ def display_pokemon_images(original, similarities, pokemon_names, num_columns=5)
     for ax in axes[len(pokemon_names) + 2 :]:
         ax.axis("off")
 
-    plt.show()
+    if image_path is not None:
+        plt.savefig(image_path, bbox_inches='tight')
+        plt.close(fig)
+    else:  
+        plt.show()
     
 
 
@@ -78,7 +82,7 @@ if __name__ == "__main__":
         "--index", default="pokedex.idx", help="Path to the FAISS index file"
     )
     parser.add_argument(
-        "--N", type=int, default=5, help="Number of similar Pokémon results to display"
+        "--N", type=int, default=8, help="Number of similar Pokémon results to display"
     )
     args = parser.parse_args()
 
